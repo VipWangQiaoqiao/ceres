@@ -247,7 +247,7 @@ public class TreeCellExtender {
 
             Graphics g2 = g.create(0, 0, width, height);
             g2.translate(-offset, 0);
-            rendererComponent.paint(g2);
+            rendererComponent.paintAll(g2);
             g2.dispose();
         }
     }

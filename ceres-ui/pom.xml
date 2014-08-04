@@ -11,7 +11,7 @@
 
     <name>Ceres UI</name>
     <artifactId>ceres-ui</artifactId>
-    <version>0.14</version>
+    <version>0.14.1</version>
 
     <packaging>jar</packaging>
 

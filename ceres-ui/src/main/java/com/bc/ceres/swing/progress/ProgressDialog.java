@@ -21,10 +21,12 @@ import com.jidesoft.swing.JideButton;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.FilteredImageSource;
 import java.awt.image.RGBImageFilter;
-import java.util.EventObject;
 
 /**
  * A utility class very similar to {@link javax.swing.ProgressMonitor} but with the following extensions:
@@ -343,7 +345,7 @@ public class ProgressDialog {
                         extendLabel.setText(lessText);
                         Dimension size = dialog.getSize();
                         dialog.setSize(size.width,
-                                       Math.max(notExtendedDialogHeight + 200, size.height));
+                                Math.max(notExtendedDialogHeight + 200, size.height));
                     }
                 }
             });
@@ -417,8 +419,11 @@ public class ProgressDialog {
         SwingHelper.centerComponent(dialog, parentWindow);
 
         notExtendedDialogHeight = dialog.getHeight();
-
-        dialog.setVisible(true);
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                dialog.setVisible(true);
+            }
+        });
     }
 
     private void configure(AbstractButton button) {

@@ -419,13 +419,7 @@ public class ProgressDialog {
         SwingHelper.centerComponent(dialog, parentWindow);
 
         notExtendedDialogHeight = dialog.getHeight();
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                if (dialog != null ){
-                    dialog.setVisible(true);
-                }
-            }
-        });
+        dialog.setVisible(true);
     }
 
     private void configure(AbstractButton button) {

@@ -421,7 +421,9 @@ public class ProgressDialog {
         notExtendedDialogHeight = dialog.getHeight();
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                dialog.setVisible(true);
+                if (dialog != null ){
+                    dialog.setVisible(true);
+                }
             }
         });
     }

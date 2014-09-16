@@ -214,7 +214,7 @@ public class TreeCellExtender {
         public CellExtenderPanel() {
             setBorder(new CellExtenderBorder());
             setBackground(tree.getBackground());
-            setDoubleBuffered(false);
+        //    setDoubleBuffered(false);
         }
 
         @Override
@@ -245,7 +245,7 @@ public class TreeCellExtender {
                                                                                 row,
                                                                                 false); // has focus ?
             rendererComponent.setSize(1024, height);
-            javax.swing.RepaintManager.currentManager(null).setDoubleBufferingEnabled(false);
+       //     javax.swing.RepaintManager.currentManager(null).setDoubleBufferingEnabled(false);
             Graphics g2 = g.create(0, 0, width, height);
             g2.translate(-offset, 0);
             rendererComponent.paintAll(g2);

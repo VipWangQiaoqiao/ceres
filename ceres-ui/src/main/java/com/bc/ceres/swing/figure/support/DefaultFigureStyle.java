@@ -50,6 +50,7 @@ public class DefaultFigureStyle extends PropertyContainer implements FigureStyle
     public static final PropertyDescriptor STROKE_COLOR = createStrokeColorDescriptor();
     public static final PropertyDescriptor STROKE_OPACITY = createStrokeOpacityDescriptor();
     public static final PropertyDescriptor STROKE_WIDTH = createStrokeWidthDescriptor();
+    public static final PropertyDescriptor STROKE_DASHARRAY = createStrokeDasharrayDescriptor();
     //
     //  The following property descriptors are not really SVG/CSS standards
     //
@@ -225,7 +226,7 @@ public class DefaultFigureStyle extends PropertyContainer implements FigureStyle
     @Override
     public Stroke getStroke() {
         if (stroke == null) {
-            stroke = getEffectiveStroke(getStrokeWidth());
+            stroke = getEffectiveStroke(getStrokeWidth(), getStrokeDasharray());
         }
         return stroke;
     }
@@ -294,6 +295,14 @@ public class DefaultFigureStyle extends PropertyContainer implements FigureStyle
 
     public void setStrokeWidth(double width) {
         setValue(STROKE_WIDTH.getName(), width);
+    }
+
+    public float[] getStrokeDasharray() {
+        return getValue(STROKE_DASHARRAY.getName());
+    }
+
+    public void setStrokeDasharray(float[] dasharray) {
+        setValue(STROKE_DASHARRAY.getName(), dasharray);
     }
 
     /**
@@ -450,6 +459,7 @@ public class DefaultFigureStyle extends PropertyContainer implements FigureStyle
         if (stroke instanceof BasicStroke) {
             BasicStroke basicStroke = (BasicStroke) stroke;
             figureStyle.setStrokeWidth(basicStroke.getLineWidth());
+            figureStyle.setStrokeDasharray(basicStroke.getDashArray());
             // add other stuff here
         }
         figureStyle.strokePaint = strokePaint;
@@ -509,8 +519,9 @@ public class DefaultFigureStyle extends PropertyContainer implements FigureStyle
                          alpha);
     }
 
-    private static Stroke getEffectiveStroke(double width) {
-        return new BasicStroke((float) width);
+    private static Stroke getEffectiveStroke(double width, float[] strokeDasharray) {
+        return new BasicStroke((float) width, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER,
+                10.0f, strokeDasharray, 0.0f);
     }
 
     private void resetAllEffectiveProperties() {
@@ -569,6 +580,10 @@ public class DefaultFigureStyle extends PropertyContainer implements FigureStyle
         PropertyDescriptor descriptor = createPropertyDescriptor("stroke-width", Double.class, 0.0, false);
         descriptor.setValueRange(new ValueRange(0.0, Double.POSITIVE_INFINITY));
         return descriptor;
+    }
+
+    private static PropertyDescriptor createStrokeDasharrayDescriptor() {
+        return createPropertyDescriptor("stroke-dasharray", float[].class, new float[]{1.0f}, false);
     }
 
     private static PropertyDescriptor createSymbolNameDescriptor() {

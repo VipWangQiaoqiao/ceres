@@ -100,7 +100,8 @@ public class DefaultFigureEditor extends ExtensibleObject implements FigureEdito
         this.figureFactory = figureFactory;
 
         this.defaultLineStyle = DefaultFigureStyle.createLineStyle(new Color(255, 255, 255, 200),
-                                                                   new BasicStroke(1.5f));
+                StyleDefaults.SELECTION_STROKE);
+                                                                   //new BasicStroke(1.5f));
         this.defaultPolygonStyle = DefaultFigureStyle.createPolygonStyle(new Color(0, 0, 255, 200),
                                                                          new Color(255, 255, 255, 200),
                                                                          new BasicStroke(1.0f));

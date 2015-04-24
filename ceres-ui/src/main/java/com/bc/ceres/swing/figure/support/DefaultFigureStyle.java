@@ -226,7 +226,7 @@ public class DefaultFigureStyle extends PropertyContainer implements FigureStyle
     @Override
     public Stroke getStroke() {
         if (stroke == null) {
-            stroke = getEffectiveStroke(getStrokeWidth(), getStrokeDasharray());
+            stroke = getEffectiveStroke(getStrokeWidth());
         }
         return stroke;
     }
@@ -459,7 +459,7 @@ public class DefaultFigureStyle extends PropertyContainer implements FigureStyle
         if (stroke instanceof BasicStroke) {
             BasicStroke basicStroke = (BasicStroke) stroke;
             figureStyle.setStrokeWidth(basicStroke.getLineWidth());
-            figureStyle.setStrokeDasharray(basicStroke.getDashArray());
+            //figureStyle.setStrokeDasharray(basicStroke.getDashArray());
             // add other stuff here
         }
         figureStyle.strokePaint = strokePaint;
@@ -519,9 +519,8 @@ public class DefaultFigureStyle extends PropertyContainer implements FigureStyle
                          alpha);
     }
 
-    private static Stroke getEffectiveStroke(double width, float[] strokeDasharray) {
-        return new BasicStroke((float) width, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER,
-                10.0f, strokeDasharray, 0.0f);
+    private static Stroke getEffectiveStroke(double width) {
+        return new BasicStroke((float) width);
     }
 
     private void resetAllEffectiveProperties() {

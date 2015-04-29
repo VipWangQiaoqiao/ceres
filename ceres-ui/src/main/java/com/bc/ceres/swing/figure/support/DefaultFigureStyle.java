@@ -50,7 +50,6 @@ public class DefaultFigureStyle extends PropertyContainer implements FigureStyle
     public static final PropertyDescriptor STROKE_COLOR = createStrokeColorDescriptor();
     public static final PropertyDescriptor STROKE_OPACITY = createStrokeOpacityDescriptor();
     public static final PropertyDescriptor STROKE_WIDTH = createStrokeWidthDescriptor();
-    public static final PropertyDescriptor STROKE_DASHARRAY = createStrokeDasharrayDescriptor();
     //
     //  The following property descriptors are not really SVG/CSS standards
     //
@@ -297,14 +296,6 @@ public class DefaultFigureStyle extends PropertyContainer implements FigureStyle
         setValue(STROKE_WIDTH.getName(), width);
     }
 
-    public float[] getStrokeDasharray() {
-        return getValue(STROKE_DASHARRAY.getName());
-    }
-
-    public void setStrokeDasharray(float[] dasharray) {
-        setValue(STROKE_DASHARRAY.getName(), dasharray);
-    }
-
     /**
      * Gets the effective fill paint used for drawing the interior of a polygonal shape.
      * The effective paint may result from a number of different style properties.
@@ -459,7 +450,6 @@ public class DefaultFigureStyle extends PropertyContainer implements FigureStyle
         if (stroke instanceof BasicStroke) {
             BasicStroke basicStroke = (BasicStroke) stroke;
             figureStyle.setStrokeWidth(basicStroke.getLineWidth());
-            //figureStyle.setStrokeDasharray(basicStroke.getDashArray());
             // add other stuff here
         }
         figureStyle.strokePaint = strokePaint;
@@ -579,10 +569,6 @@ public class DefaultFigureStyle extends PropertyContainer implements FigureStyle
         PropertyDescriptor descriptor = createPropertyDescriptor("stroke-width", Double.class, 0.0, false);
         descriptor.setValueRange(new ValueRange(0.0, Double.POSITIVE_INFINITY));
         return descriptor;
-    }
-
-    private static PropertyDescriptor createStrokeDasharrayDescriptor() {
-        return createPropertyDescriptor("stroke-dasharray", float[].class, new float[]{1.0f}, false);
     }
 
     private static PropertyDescriptor createSymbolNameDescriptor() {
